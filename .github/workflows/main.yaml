@@ -27,4 +27,13 @@ notify-n8n-on-failure:
   steps:
     - name: Trigger N8N Webhook
       run: |
-        curl -X POST "${{secrets.N8N_WEBHOOK_URL}}" -H "Content-Type: application/json" -H "x-webhook-secret: ${{secrets.N8N_WEBHOOK_SECRET}}"  -d '{"run_id":"${{ github.run_id}}", "repo": "${{github.repository}}", "branch":"${{github.refname}}", "commit":"${{github.sha}}", "actor": "${{github.actor}}"}'
+        curl -X POST "${{secrets.N8N_WEBHOOK_URL}}" \
+        -H "Content-Type: application/json" \
+        -H "x-webhook-secret: ${{secrets.N8N_WEBHOOK_SECRET}}"  \
+        -d '{
+          "run_id":"${{ github.run_id}}",
+          "repo": "${{github.repository}}",
+          "branch":"${{github.refname}}",
+          "commit":"${{github.sha}}",
+          "actor": "${{github.actor}}"
+        }'
